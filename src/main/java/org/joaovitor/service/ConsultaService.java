@@ -21,17 +21,17 @@ public class ConsultaService {
     private ClinicaDAO dao  = new ClinicaDAO();
 
     @WebMethod
-    public List<Consulta> listarConsultas() {
+    public List<Consulta> obterTodasAsConsultas() {
         return dao.obterTodas();
     }
 
     @WebMethod
-    public List<Consulta> filtrarConsultasPorMedico(@WebParam(name="idMedico") Integer idMedico) {
+    public List<Consulta> obterConsultasPorMedico(@WebParam(name="idMedico") Integer idMedico) {
         return dao.obterPorMedico(idMedico);
     }
 
     @WebMethod
-    public String inserirConsulta(
+    public String cadastrarConsulta(
             @WebParam(name="idMedico") Integer idMedico,
             @WebParam(name="idPaciente") Integer idPaciente,
             @WebParam(name="descricao") String descricao,

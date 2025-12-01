@@ -14,17 +14,17 @@ public class MedicoService {
     private MedicoDAO dao = new MedicoDAO();
 
     @WebResult(name = "medico")
-    public java.util.List<Medico> obterTodos() {
+    public java.util.List<Medico> obterTodosMedicos() {
         return dao.obterTodos();
     }
 
     @WebResult(name = "medico")
-    public java.util.List<Medico> obterPorEspecialidade(
+    public java.util.List<Medico> obterMedicosPorEspecialidade(
             @WebParam(name = "especialidade") String esp) {
         return dao.obterPorEspecialidade(esp);
     }
 
-    public void adicionarMedico(
+    public void cadastrarMedico(
             @WebParam(name = "medico") Medico medico,
             @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizado {
