@@ -5,7 +5,11 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import org.joaovitor.autenticacao.Autenticador;
-import org.joaovitor.dao.ClinicaDAO;
+import org.joaovitor.dao.ConsultaDAO;
+import org.joaovitor.dao.MedicoDAO;
+import org.joaovitor.dao.PacienteDAO;
+import org.joaovitor.excecoes.MedicoNaoEncontradoException;
+import org.joaovitor.excecoes.PacienteNaoEncontradoException;
 import org.joaovitor.excecoes.UsuarioNaoAutorizado;
 import org.joaovitor.modelo.Consulta;
 import org.joaovitor.modelo.Medico;
@@ -18,16 +22,18 @@ import java.util.List;
 @WebService
 public class ConsultaService {
 
-    private ClinicaDAO dao  = new ClinicaDAO();
+    private ConsultaDAO consultaDAO = new ConsultaDAO();
+    private MedicoDAO medicoDAO = new MedicoDAO();
+    private PacienteDAO pacienteDAO = new PacienteDAO();
 
     @WebMethod
     public List<Consulta> obterTodasAsConsultas() {
-        return dao.obterTodas();
+        return consultaDAO.obterTodas();
     }
 
     @WebMethod
     public List<Consulta> obterConsultasPorMedico(@WebParam(name="idMedico") Integer idMedico) {
-        return dao.obterPorMedico(idMedico);
+        return consultaDAO.obterPorMedico(idMedico);
     }
 
     @WebMethod
@@ -36,12 +42,23 @@ public class ConsultaService {
             @WebParam(name="idPaciente") Integer idPaciente,
             @WebParam(name="descricao") String descricao,
             @WebParam(name="usuario", header = true) Usuario usuario
-    ) throws UsuarioNaoAutorizado {
+    ) throws  UsuarioNaoAutorizado,
+    MedicoNaoEncontradoException,
+    PacienteNaoEncontradoException {
 
         Autenticador.validar(usuario);
 
-        Medico m = new Medico(idMedico, "Medico fake", "0000", "geral");
-        Paciente p = new Paciente(idPaciente, "Paciente fake", "000.000.000-00");
+        Medico m = medicoDAO.obterMedico(idMedico);
+
+        if (m == null) {
+            throw new MedicoNaoEncontradoException(idMedico);
+        }
+
+        Paciente p = pacienteDAO.obterPaciente(idPaciente);
+
+        if (p == null) {
+            throw new PacienteNaoEncontradoException(idPaciente);
+        }
 
         Consulta c = new Consulta(
                 (int)(Math.random() * 1000),
@@ -51,7 +68,7 @@ public class ConsultaService {
                 descricao
         );
 
-        dao.adicionar(c);
+        consultaDAO.adicionar(c);
 
         return "Consulta inserida com sucesso!";
     }

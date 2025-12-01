@@ -11,9 +11,9 @@ public class MedicoDAO {
     private static List<Medico> medicos = new ArrayList<>();
 
     static {
-        medicos.add(new Medico(1, "Dr. João Silva", "", "Cardiologia"));
-        medicos.add(new Medico(2, "Dra. Maria Lima", "", "Dermatologia"));
-        medicos.add(new Medico(3, "Dr. Carlos Souza", "", "Ortopedia"));
+        medicos.add(new Medico(1, "Dr. João Silva", "23146", "Cardiologia"));
+        medicos.add(new Medico(2, "Dra. Maria Lima", "27220", "Dermatologia"));
+        medicos.add(new Medico(3, "Dr. Carlos Souza", "426712", "Ortopedia"));
     }
 
     public List<Medico> obterTodos() {
@@ -24,6 +24,13 @@ public class MedicoDAO {
         return medicos.stream()
                 .filter(m -> m.getEspecialidade().equalsIgnoreCase(esp))
                 .collect(Collectors.toList());
+    }
+
+    public Medico obterMedico(int codigo) {
+        return medicos.stream()
+                .filter(medico -> medico.getId() == codigo)
+                .findFirst()
+                .orElse(null);
     }
 
     public void adicionar(Medico medico) {
