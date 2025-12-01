@@ -22,12 +22,12 @@ public class ConsultaService {
 
     @WebMethod
     public List<Consulta> listarConsultas() {
-        return dao.listarConsultas();
+        return dao.obterTodas();
     }
 
     @WebMethod
     public List<Consulta> filtrarConsultasPorMedico(@WebParam(name="idMedico") Integer idMedico) {
-        return dao.filtrarConsultasPorMedico(idMedico);
+        return dao.obterPorMedico(idMedico);
     }
 
     @WebMethod
@@ -51,7 +51,7 @@ public class ConsultaService {
                 descricao
         );
 
-        dao.inserirConsulta(c);
+        dao.adicionar(c);
 
         return "Consulta inserida com sucesso!";
     }

@@ -16,13 +16,13 @@ public class PacienteService {
 
     @WebResult(name = "paciente")
     public java.util.List<Paciente> listarPacientes() {
-        return dao.listar();
+        return dao.obterTodos();
     }
 
     @WebResult(name = "paciente")
     public java.util.List<Paciente> listarPacientesPorCPF(
             @WebParam(name = "CPF") String cpf) {
-        return dao.listarPacientePorCPF(cpf);
+        return dao.obterPorCPF(cpf);
     }
 
     public void inserirPaciente(
@@ -32,6 +32,6 @@ public class PacienteService {
 
         Autenticador.validar(usuario);
 
-        dao.inserir(paciente);
+        dao.adicionar(paciente);
     }
 }

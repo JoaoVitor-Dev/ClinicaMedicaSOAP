@@ -29,11 +29,11 @@ public class ClinicaDAO {
         consultas.add(new Consulta(2, m2, p2, new Date(), "Acompanhamento dermatológico"));
     }
 
-    public List<Consulta> listarConsultas() {
+    public List<Consulta> obterTodas() {
         return consultas;
     }
 
-    public List<Consulta> filtrarConsultasPorMedico(Integer idMedico) {
+    public List<Consulta> obterPorMedico(Integer idMedico) {
         List<Consulta> resultado = new ArrayList<>();
         for (Consulta c : consultas) {
             if (c.getMedico().getId().equals(idMedico)) {
@@ -43,7 +43,7 @@ public class ClinicaDAO {
         return resultado;
     }
 
-    public void inserirConsulta(Consulta consulta) {
+    public void adicionar(Consulta consulta) {
         consultas.add(consulta);
     }
 }

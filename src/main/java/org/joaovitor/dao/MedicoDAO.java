@@ -16,17 +16,17 @@ public class MedicoDAO {
         medicos.add(new Medico(3, "Dr. Carlos Souza", "", "Ortopedia"));
     }
 
-    public List<Medico> listar() {
+    public List<Medico> obterTodos() {
         return medicos;
     }
 
-    public List<Medico> listarPorEspecialidade(String esp) {
+    public List<Medico> obterPorEspecialidade(String esp) {
         return medicos.stream()
                 .filter(m -> m.getEspecialidade().equalsIgnoreCase(esp))
                 .collect(Collectors.toList());
     }
 
-    public void inserir(Medico medico) {
+    public void adicionar(Medico medico) {
         medicos.add(medico);
     }
 }

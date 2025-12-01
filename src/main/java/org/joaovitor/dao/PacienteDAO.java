@@ -16,17 +16,17 @@ public class PacienteDAO {
         pacientes.add(new Paciente(3, "Beatriz Ramos", ""));
     }
 
-    public List<Paciente> listar() {
+    public List<Paciente> obterTodos() {
         return pacientes;
     }
 
-    public List<Paciente> listarPacientePorCPF(String cpf) {
+    public List<Paciente> obterPorCPF(String cpf) {
         return pacientes.stream()
                 .filter(p -> p.getCpf() == cpf)
                 .collect(Collectors.toList());
     }
 
-    public void inserir(Paciente paciente) {
+    public void adicionar(Paciente paciente) {
         pacientes.add(paciente);
     }
 }

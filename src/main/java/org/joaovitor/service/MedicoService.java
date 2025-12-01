@@ -15,13 +15,13 @@ public class MedicoService {
 
     @WebResult(name = "medico")
     public java.util.List<Medico> obterTodos() {
-        return dao.listar();
+        return dao.obterTodos();
     }
 
     @WebResult(name = "medico")
     public java.util.List<Medico> obterPorEspecialidade(
             @WebParam(name = "especialidade") String esp) {
-        return dao.listarPorEspecialidade(esp);
+        return dao.obterPorEspecialidade(esp);
     }
 
     public void adicionarMedico(
@@ -31,6 +31,6 @@ public class MedicoService {
 
         Autenticador.validar(usuario);
 
-        dao.inserir(medico);
+        dao.adicionar(medico);
     }
 }
