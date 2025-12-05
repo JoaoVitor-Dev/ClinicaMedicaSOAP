@@ -12,8 +12,8 @@ public class Publicador {
 
         System.out.println("Publicando serviços...");
 
-        Endpoint.publish(URL_BASE +"/medico", new ConsultaService());
-        Endpoint.publish(URL_BASE +"/paciente", new ConsultaService());
+        Endpoint.publish(URL_BASE +"/medico", new MedicoService());
+        Endpoint.publish(URL_BASE +"/paciente", new PacienteService());
         Endpoint.publish(URL_BASE +"/consulta", new ConsultaService());
 
         System.out.println("WebService publicado e rodando na porta "+PORTA);
